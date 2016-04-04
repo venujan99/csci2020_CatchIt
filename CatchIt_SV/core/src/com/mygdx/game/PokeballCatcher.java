@@ -1,15 +1,27 @@
 package com.mygdx.game;
 
+
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class MyGdxGame extends ApplicationAdapter {
+import java.util.ArrayList;
+import java.util.List;
+
+public class PokeballCatcher extends ApplicationAdapter {
+	final int TIMELIMIT = 30;
 	SpriteBatch batch;
-	Texture img;
-	
+	Player myPlayer;
+	ArrayList<Pokeball> pokeballs;
+	BitmapFont font ;
+	boolean shouldRenderScores = false;
+
+	int score = 0;
+	double time = 0;
+	List<String> scoresFromFile;
 	@Override
 	public void create () {
 		batch = new SpriteBatch();

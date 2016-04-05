@@ -20,18 +20,19 @@ public class PokeballCatcher extends ApplicationAdapter {
 	SpriteBatch batch;
 	Player myPlayer;
 	ArrayList<Pokeball> pokeballs;
-	BitmapFont font ;
+	BitmapFont font;
 	boolean shouldRenderScores = false;
 
 	int score = 0;
 	double time = 0;
 	List<String> scoresFromFile;
+
 	@Override
-	public void create () {
+	public void create() {
 		batch = new SpriteBatch();
 		myPlayer = new Player();
-		pokeballs = new ArrayList<Pokeball>() ;
-		for (int i=0 ; i < 15 ; i ++) {
+		pokeballs = new ArrayList<Pokeball>();
+		for (int i = 0; i < 15; i++) {
 			pokeballs.add(new Pokeball());
 		}
 		font = new BitmapFont();
@@ -54,11 +55,34 @@ public class PokeballCatcher extends ApplicationAdapter {
 	}
 
 	@Override
-	public void render () {
-		Gdx.gl.glClearColor(1, 0, 0, 1);
+	public void render() {
+		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+		boolean shouldRenderStuff = time <= TIMELIMIT;
 		batch.begin();
-		batch.draw(img, 0, 0);
+		myPlayer.draw(batch);
+
+		if (shouldRenderStuff) {
+
+			for (int i = 0; i < pokeballs.size(); i++) {
+				pokeballs.get(i).draw(batch);
+			}
+			time += Gdx.graphics.getDeltaTime();
+			if (time >= TIMELIMIT) {
+
+				MyTextInputListener listener;
+				listener = new MyTextInputListener();
+				Gdx.input.getTextInput(listener, "Enter Name", "", "Enter your name");
+			}
+		} else {
+			this.font.draw(batch, "THANK YOU FOR PLAYING! You Scored " + score, Gdx.graphics.getWidth() / 2 - 50, Gdx.graphics.getHeight() - 20);
+			if (shouldRenderScores) {
+				renderScores(batch);
+			}
+		}
+		this.font.draw(batch, "Score : " + this.score, 10, Gdx.graphics.getHeight());
+		this.font.draw(batch, "Time : " + String.format("%.2f", this.time), 10, Gdx.graphics.getHeight() - 30);
 		batch.end();
 	}
 }

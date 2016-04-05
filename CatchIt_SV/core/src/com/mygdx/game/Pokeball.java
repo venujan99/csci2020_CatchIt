@@ -3,6 +3,7 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 
 import java.util.Random;
 
@@ -59,5 +60,21 @@ public class Pokeball {
 
         batch.draw(this.getTexture(), xCoordinates, yCoordinates);
 
+    }
+
+    boolean isColliding(Player object) {
+        Rectangle myRect = this.getRectangle();
+        Rectangle theirRect = object.getRectangle();
+        return theirRect.overlaps(myRect);
+
+    }
+
+    Rectangle getRectangle() {
+
+        return new Rectangle(xCoordinates, yCoordinates, this.getTexture().getWidth(),this.getTexture().getHeight()
+        );
+    }
+    Texture  getTexture(){
+        return sprite;
     }
 }

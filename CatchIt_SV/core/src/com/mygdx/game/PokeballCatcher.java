@@ -8,6 +8,10 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +29,28 @@ public class PokeballCatcher extends ApplicationAdapter {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
+		myPlayer = new Player();
+		pokeballs = new ArrayList<Pokeball>() ;
+		for (int i=0 ; i < 15 ; i ++) {
+			pokeballs.add(new Pokeball());
+		}
+		font = new BitmapFont();
+
+		Gdx.input.setInputProcessor(new MyInputAdapter());
+
+	}
+
+
+	void loadScores() {
+
+		try {
+			List<String> lines = Files.readAllLines(Paths.get("score.txt"), StandardCharsets.UTF_8);
+			this.scoresFromFile = lines;
+
+		} catch (IOException e) {
+
+		}
+
 	}
 
 	@Override

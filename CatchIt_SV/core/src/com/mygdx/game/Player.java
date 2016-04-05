@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.sun.javafx.geom.Rectangle;
 
 /**
  * Created by venujan on 04/04/16.
@@ -49,10 +50,19 @@ public class Player {
         }
 
     }
-    
+
     void draw(SpriteBatch batch) {
 
         batch.draw(this.getTexture(), xCoordinates, yCoordinates);
 
+    }
+
+    public Rectangle getRectangle() {
+
+        return new Rectangle(xCoordinates, yCoordinates, this.getTexture().getWidth(),this.getTexture().getHeight()
+        );
+    }
+    Texture  getTexture(){
+        return sprite;
     }
 }

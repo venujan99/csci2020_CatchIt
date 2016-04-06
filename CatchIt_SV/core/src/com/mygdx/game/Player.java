@@ -1,10 +1,12 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.sun.javafx.geom.Rectangle;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 
 /**
- * Created by venujan on 04/04/16.
+ * Created by venujan on 02/04/16.
  */
 public class Player {
 
@@ -24,13 +26,12 @@ public class Player {
     boolean leftMove;
     boolean rightMove;
 
-    // setting player image as sprite
+
     public Player( ) {
         super();
-        sprite = new Texture("playerCopy.png");
+        sprite = new Texture("core/assets/playerCopy.png");
 
     }
-    //this method will update the player's position based on the arrow pressed (left/right)
     void updateMotion() {
 
         if (leftMove)
@@ -46,11 +47,11 @@ public class Player {
             this.xCoordinates = 0;
         }
         if ( this.xCoordinates  > Gdx.graphics.getWidth() - this.getTexture().getWidth() ) {
+
             this.xCoordinates = Gdx.graphics.getWidth() - this.getTexture().getWidth();
         }
 
     }
-
     void draw(SpriteBatch batch) {
 
         batch.draw(this.getTexture(), xCoordinates, yCoordinates);

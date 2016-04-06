@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.Rectangle;
 import java.util.Random;
 
 /**
- * Created by venujan on 04/04/16.
+ * Created by venujan on 02/04/16.
  */
 public class Pokeball {
 
@@ -31,7 +31,7 @@ public class Pokeball {
 
     public Pokeball ( ) {
         super();
-        sprite = new Texture("pokeball.png");
+        sprite = new Texture("core/assets/pokeball.png");
         xCoordinates = new Random().nextInt(Gdx.graphics.getWidth() - this.getTexture().getWidth());
         yCoordinates = Gdx.graphics.getHeight() - this.getTexture().getHeight();
         speed = new Random().nextInt(400)+ 200;
@@ -39,9 +39,6 @@ public class Pokeball {
     void physics() {
 
         this.yCoordinates-= speed * Gdx.graphics.getDeltaTime();
-//        System.out.println("Y coordinates " + this.yCoordinates);
-//
-//        System.out.println("X Coordinates " + this.xCoordinates);
 
         if ( this.yCoordinates <=  0 ) {
 
@@ -51,7 +48,6 @@ public class Pokeball {
     }
     void recycleObject() {
         xCoordinates = new Random().nextInt(Gdx.graphics.getWidth() - this.getTexture().getWidth());
-        System.out.println("Ball Coordinates " + xCoordinates);
         yCoordinates = Gdx.graphics.getHeight() - this.getTexture().getHeight();
         speed = new Random().nextInt(500)+ 200;
 

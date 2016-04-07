@@ -29,7 +29,7 @@ public class Player {
 
     public Player( ) {
         super();
-        sprite = new Texture("core/assets/playerCopy.png");
+        sprite = new Texture("core/assets/rsz_chansey.png");
 
     }
     void updateMotion() {

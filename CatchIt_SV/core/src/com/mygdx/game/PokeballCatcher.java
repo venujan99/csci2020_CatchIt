@@ -4,6 +4,8 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -24,26 +26,41 @@ public class PokeballCatcher extends ApplicationAdapter {
 	SpriteBatch batch;
 	Player myPlayer;
 	ArrayList<Pokeball> pokeballs;
+	ArrayList<Egg> eggs;
 	BitmapFont font ;
 	boolean shouldRenderScores = false;
-
 	int score = 0;
 	double time = 0;
 	List<String> scoresFromFile;
+	private Sound shock_sound = null;
+
+
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
 		myPlayer = new Player();
+
+		//number of voltorbs array
 		pokeballs = new ArrayList<Pokeball>() ;
-		for (int i=0 ; i < 15 ; i ++) {
+		for (int i=0 ; i < 9 ; i ++) {
 			pokeballs.add(new Pokeball());
 		}
+		//number of eggs array
+		eggs = new ArrayList<Egg>() ;
+		for (int i=0 ; i < 15 ; i ++) {
+			eggs.add(new Egg());
+		}
 		font = new BitmapFont();
-
+		//shock_sound = Gdx.audio.newSound(Gdx.files.internal("core/assets/grunt_sound.wav"));
 		Gdx.input.setInputProcessor(new MyInputAdapter());
 
+		Music backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("core/assets/pokemon-egg.mp3"));
+		backgroundMusic.setLooping(true);
+		backgroundMusic.play();
 
 	}
+
+	//loading the scores stored in txt file
 	void loadScores() {
 
 		try {
@@ -65,13 +82,17 @@ public class PokeballCatcher extends ApplicationAdapter {
 		batch.begin();
 		myPlayer.draw(batch);
 
-		if ( shouldRenderStuff) {
+		if (shouldRenderStuff) {
 
+			//drawing pokeballs
 			for (int i = 0; i < pokeballs.size(); i++) {
 				pokeballs.get(i).draw(batch);
 			}
+			for (int i = 0; i < eggs.size(); i++) {
+				eggs.get(i).draw(batch);
+			}
 			time += Gdx.graphics.getDeltaTime();
-			if ( time >= TIMELIMIT) {
+			if (time >= TIMELIMIT) {
 
 				MyTextInputListener listener;
 				listener = new MyTextInputListener();
@@ -79,7 +100,7 @@ public class PokeballCatcher extends ApplicationAdapter {
 			}
 		} else {
 			this.font.draw(batch, "Time Up!! You Scored " + score, Gdx.graphics.getWidth() / 2 - 50, Gdx.graphics.getHeight() - 20);
-			if ( shouldRenderScores) {
+			if (shouldRenderScores) {
 				renderScores(batch);
 			}
 		}
@@ -88,20 +109,29 @@ public class PokeballCatcher extends ApplicationAdapter {
 		batch.end();
 
 		// checking if ball touches player
-		if ( shouldRenderStuff) {
+		if (shouldRenderStuff) {
 			for (int i = 0; i < pokeballs.size(); i++) {
 				//if pokeball touches player, add one point
 				if (pokeballs.get(i).isColliding(myPlayer)) {
-					score++;
+					score--;
 					pokeballs.get(i).recycleObject();
 
 				} else {
 					pokeballs.get(i).physics();
 				}
-
 			}
 
+			for (int i = 0; i < eggs.size(); i++) {
+				//if pokeball touches player, add one point
+				if (eggs.get(i).isColliding(myPlayer)) {
+					score++;
+					eggs.get(i).recycleObject();
 
+				} else {
+					eggs.get(i).physics();
+
+				}
+			}
 			myPlayer.updateMotion();
 		}
 	}
@@ -143,6 +173,7 @@ public class PokeballCatcher extends ApplicationAdapter {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+			//adding player's name, separated by score
 			String toAdd = text+";"+score;
 			lines.add(toAdd);
 

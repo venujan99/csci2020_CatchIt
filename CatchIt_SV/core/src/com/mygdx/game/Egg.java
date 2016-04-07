@@ -8,10 +8,9 @@ import com.badlogic.gdx.math.Rectangle;
 import java.util.Random;
 
 /**
- * Created by venujan on 02/04/16.
+ * Created by venujan on 07/04/16.
  */
-public class Pokeball {
-
+public class Egg {
     Texture sprite;
     int xCoordinates;
     int yCoordinates;
@@ -29,13 +28,13 @@ public class Pokeball {
     boolean rightMove;
 
 
-    public Pokeball ( ) {
+    public Egg ( ) {
         super();
-        sprite = new Texture("core/assets/rsz_voltorb.png");
+        sprite = new Texture("core/assets/rsz_egg.png");
         xCoordinates = new Random().nextInt(Gdx.graphics.getWidth() - this.getTexture().getWidth());
         yCoordinates = Gdx.graphics.getHeight() - this.getTexture().getHeight();
-        // speed of pokeballs falling down
-        speed = new Random().nextInt(100)+ 100;
+        // speed of eggs falling down
+        speed = new Random().nextInt(150)+ 150;
     }
     void physics() {
 
@@ -50,7 +49,7 @@ public class Pokeball {
     void recycleObject() {
         xCoordinates = new Random().nextInt(Gdx.graphics.getWidth() - this.getTexture().getWidth());
         yCoordinates = Gdx.graphics.getHeight() - this.getTexture().getHeight();
-        speed = new Random().nextInt(100)+ 100;
+        speed = new Random().nextInt(150)+ 150;
 
     }
     void draw(SpriteBatch batch) {

@@ -29,9 +29,11 @@ public class Player {
 
     public Player( ) {
         super();
+        //loading player picture
         sprite = new Texture("core/assets/rsz_chansey.png");
 
     }
+    //movement results
     void updateMotion() {
 
         if (leftMove)

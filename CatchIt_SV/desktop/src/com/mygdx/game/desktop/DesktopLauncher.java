@@ -2,7 +2,7 @@ package com.mygdx.game.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.mygdx.game.PokeballCatcher;
+import com.mygdx.game.Chansey_Game;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -16,7 +16,7 @@ public class DesktopLauncher {
 		config.height = 720;
 		config.width = 1080;
 
-		new LwjglApplication(new PokeballCatcher(), config);
+		new LwjglApplication(new Chansey_Game(), config);
 
 		ServerSocket serverSocket = new ServerSocket(9655);
 		while( true) {

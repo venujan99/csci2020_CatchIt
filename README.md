@@ -1,4 +1,4 @@
-# Group Members:
+# Project Info:
 Sindiya Mohan - 100600998 (sindiya18)
 Venujan Satchithanantham - 100600999 (venujan99)
 
